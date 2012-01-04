@@ -1,0 +1,2 @@
+#!/bin/bash
+sort | uniq -c | sed -e 's/^  *//' | cut -d ' ' -f 1
