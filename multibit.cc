@@ -84,6 +84,11 @@ uint32_t optimize (uint32_t max_bits, const uint32_t* histogram)
     best.cost = static_cast<uint32_t>(-1);
     solve(histogram, max_bits, 0, &initial, &best);
 
+    printf("--- %u ---\n", best.group_count);
+    for (int i = 0; i < best.group_count; ++i) {
+        printf("%u: %u\n", i, best.groups[i]);
+    }
+
     return best.cost;
 }
 
@@ -93,11 +98,13 @@ uint32_t bit_histogram[32];
 uint32_t groups[100000]; // 100 K
 uint32_t bit_histogram2[32];
 
-int main ()
+int main (int argc, char* argv[])
 {
     uint32_t nvalues    = read(values);
     uint32_t max_bits   = make_bit_histogram(nvalues, values, bit_histogram);
-    uint32_t cost       = optimize(max_bits, bit_histogram) + nvalues;
+    uint32_t cost       = optimize(max_bits, bit_histogram);
+
+    if (argc > 1 && strcmp(argv[1], "-s") == 0) cost += nvalues;
 
     printf("%u\n", nvalues);
     printf("%u (%u)\n", cost, cost / 8);
