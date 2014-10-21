@@ -95,9 +95,6 @@ uint32_t optimize (uint32_t max_bits, const uint32_t* histogram)
 int32_t  values[100000000]; // 100 M
 uint32_t bit_histogram[32];
 
-uint32_t groups[100000]; // 100 K
-uint32_t bit_histogram2[32];
-
 int main (int argc, char* argv[])
 {
     uint32_t nvalues    = read(values);
